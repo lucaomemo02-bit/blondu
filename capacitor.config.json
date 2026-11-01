@@ -1,0 +1,9 @@
+{
+  "appId": "app.blondu.chat",
+  "appName": "Blondu",
+  "webDir": "www",
+  "backgroundColor": "#0f0d17",
+  "android": {
+    "allowMixedContent": false
+  }
+}

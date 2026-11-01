@@ -1,0 +1,41 @@
+name: Gerar app de computador do Blondu
+
+on:
+  workflow_dispatch:
+
+jobs:
+  desktop:
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [windows-latest, ubuntu-latest, macos-latest]
+    runs-on: ${{ matrix.os }}
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Copiar o app
+        shell: bash
+        run: |
+          mkdir -p desktop/www
+          cp -r www/* desktop/www/
+
+      - name: Instalar dependências
+        working-directory: desktop
+        run: npm install
+
+      - name: Gerar instalador
+        working-directory: desktop
+        run: npx electron-builder --publish never
+
+      - name: Guardar instaladores
+        uses: actions/upload-artifact@v4
+        with:
+          name: Blondu-${{ matrix.os }}
+          path: |
+            desktop/dist/*.exe
+            desktop/dist/*.dmg
+            desktop/dist/*.AppImage
