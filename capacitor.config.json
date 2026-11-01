@@ -3,6 +3,11 @@
   "appName": "Blondu",
   "webDir": "www",
   "backgroundColor": "#0f0d17",
+  "server": {
+    "url": "https://lucaomemo02-bit.github.io/blondu/www/index.html",
+    "cleartext": false,
+    "androidScheme": "https"
+  },
   "android": {
     "allowMixedContent": false
   }
