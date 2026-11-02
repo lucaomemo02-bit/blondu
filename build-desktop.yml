@@ -3,6 +3,9 @@ name: Gerar app de computador do Blondu
 on:
   workflow_dispatch:
 
+permissions:
+  contents: write
+
 jobs:
   desktop:
     strategy:
@@ -36,6 +39,17 @@ jobs:
         with:
           name: Blondu-${{ matrix.os }}
           path: |
+            desktop/dist/*.exe
+            desktop/dist/*.dmg
+            desktop/dist/*.AppImage
+
+      - name: Publicar para download
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: desktop-latest
+          name: Blondu para computador
+          make_latest: true
+          files: |
             desktop/dist/*.exe
             desktop/dist/*.dmg
             desktop/dist/*.AppImage
