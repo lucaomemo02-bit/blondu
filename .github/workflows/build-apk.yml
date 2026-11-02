@@ -32,6 +32,11 @@ jobs:
       - name: Copiar o app para o Android
         run: npx cap sync android
 
+      - name: Permitir microfone (mensagens de áudio)
+        run: |
+          sed -i 's|<application|<uses-permission android:name="android.permission.RECORD_AUDIO" />\n    <application|' android/app/src/main/AndroidManifest.xml
+          grep -n RECORD_AUDIO android/app/src/main/AndroidManifest.xml
+
       - name: Compilar APK
         working-directory: android
         run: |
